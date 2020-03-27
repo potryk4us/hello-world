@@ -6,7 +6,12 @@ node {
 
         checkout scm
     }*/
-
+	
+    stage('compile') {
+	    withMaven(maven: 'maven-3') {
+    sh 'mvn clean install package'
+}
+    }
     stage('Build image') {
         /* This builds the actual image */
 
