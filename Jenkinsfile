@@ -1,17 +1,19 @@
 node {
     def app
-/*
+
     stage('Clone repository') {
-        /* Cloning the Repository to our Workspace 
+        /* Cloning the Repository to our Workspace */
 
         checkout scm
-    }*/
-	
-    stage('compile') {
-	    withMaven(maven: 'maven-3') {
-    sh 'mvn clean install package'
-}
     }
+    
+    stage('Mvn Package'){
+        def mvnHome = tool name: 'maven-3', type: 'maven'
+        def mvnCMD = "${mvnHome}/bin/mvn"
+        sh label: '', script: "${mvnCMD} clean package"
+    }
+
+   
     stage('Build image') {
         /* This builds the actual image */
 
